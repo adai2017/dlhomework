@@ -58,15 +58,21 @@ class Setup:
         # basic parameters for gradient descent run (default algorithm)
         max_its = 500; alpha_choice = 10**(-1);
         self.w_init = self.initializer()
+        self.version = 'unnormalized'
+        self.beta_choice = 0
         
         # set parameters by hand
         if 'max_its' in kwargs:
             self.max_its = kwargs['max_its']
         if 'alpha_choice' in kwargs:
             self.alpha_choice = kwargs['alpha_choice']
+        if 'version' in kwargs:
+            self.version = kwargs['version']       
+        if 'beta_choice' in kwargs:
+            self.beta_choice = kwargs['beta_choice']
 
-        # run gradient descent
-        weight_history, cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init)
+        weight_history, cost_history = optimizers.gradient_descent(
+            self.cost,self.alpha_choice,self.max_its,self.w_init,self.version,self.beta_choice)
         
          # store all new histories
         self.weight_histories.append(weight_history)
